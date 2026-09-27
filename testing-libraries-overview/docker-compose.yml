@@ -1,0 +1,12 @@
+services:
+  database:
+    image: postgres:16.2
+    environment:
+      - POSTGRES_USER=testcontainers
+      - POSTGRES_PASSWORD=secret
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=testcontainers
+      - KEYCLOAK_ADMIN_PASSWORD=secret

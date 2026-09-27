@@ -1,0 +1,10 @@
+{
+  "extends": ["config:base"],
+  "enabledManagers": ["gradle", "maven", "dockerfile"],
+  "packageRules": [
+    {
+      "managers": ["npm"],
+      "enabled": false
+    }
+  ]
+}
