@@ -1,0 +1,31 @@
+name: Build Spring Boot Gradle Projects
+on:
+  workflow_dispatch:
+jobs:
+  build-gradle-projects:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: macos-latest
+          arch: arm64
+          runner: macos-latest
+          distribution: temurin
+          expander_leg: macos-latest--arm64
+    runs-on: ${{ matrix.runner }}
+    name: Build Java Projects [${{ matrix.expander_leg }}]
+    steps:
+    - name: VCS checkout
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: ${{ matrix.distribution }}
+        cache: 'gradle'
+
+    - name: Build project wiht Gradle
+      working-directory: 'kotlin-javascript-transpiling-gradle'
+      run: ./gradlew build
+    timeout-minutes: 150
